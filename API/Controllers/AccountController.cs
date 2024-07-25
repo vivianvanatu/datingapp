@@ -41,7 +41,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
             x => x.UserName == loginDto.Username.ToLower()
         );
         
-        if (user == null) return Unauthorized("Invalid username or pass");
+        if (user == null) return Unauthorized("Invalid username");
 
         using var hmac = new HMACSHA512(user.PasswordSalt);
         
@@ -49,7 +49,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
         for (int i = 0; i < computedHash.Length; i++)
         {
-            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid username or pass");
+            if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
         }
 
         return new UserDto
