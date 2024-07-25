@@ -24,6 +24,6 @@ public class UsersController(DataContext context) : BaseApiController
 
         if (user == null) return NotFound();
 
-        return user;
+    return user;
     }
 }
